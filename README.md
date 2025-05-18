@@ -10,7 +10,7 @@ These are notes and resource links relating to the PineNote Community Edition, a
 
 ## Initial Setup
 
-First steps after receiving the device the following, all done over wifi via ssh.
+First steps after receiving the device the following, all done over wifi via ssh. As at 18th May 2025.
 
 1. [Apply the recommended official fix to the bootloader](#bootloader-fix)
 2. [Backup the VCOM voltage reference](#backup-vcom-reference)
@@ -75,6 +75,22 @@ Devices in this batch required a bootloader fix, as per PINE64's official note h
 > ```
 > cat /sys/module/tps65185_regulator/drivers/i2c\:tps65185/3-0068/regulator/regulator.29/microvolts
 > ```
+
+This worked as suggested:
+
+```bash
+cat /sys/module/tps65185_regulator/drivers/i2c\:tps65185/3-0068/regulator/regulator.29/microvolts
+
+1420000
+```
+
+Although, after the Debian update which was done later, this no longer worked. The required command was then:
+
+```bash
+cat /sys/module/tps65185_regulator/drivers/i2c\:tps65185/3-0068/regulator/regulator.44/microvolts 
+
+1420000
+```
 
 ### Basic Waveform Data Backup 
 
@@ -266,4 +282,11 @@ sudo apt-get update
 sudo apt-get dist-upgrade
 ```
 
-Rebooted. Boot problems resolved.
+Rebooted. Boot problems resolved. The kernel version:
+
+```bash
+uname -a
+
+Linux pinenote 6.12.11-pinenote-202501281646-00249-g211ba27556cc #1 SMP Tue Jan 28 17:04:28 CST 2025 aarch64 GNU/Linux
+```
+
